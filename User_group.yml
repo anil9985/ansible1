@@ -2,6 +2,7 @@
 - name: Creating users and group
   hosts: localhost
   become: yes
+  gather_facts: false
   become_user: root
   become_method: sudo
   tasks:
