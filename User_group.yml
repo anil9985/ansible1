@@ -17,7 +17,6 @@
       user:
         name: anil
         state: present
-        password: $1$0IbYbrKa$Jb7.lV2NBts8WOlyP8Duj1 
         groups: test
         group: test
       register: User_details
