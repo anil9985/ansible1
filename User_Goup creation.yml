@@ -1,0 +1,37 @@
+---
+- name: Creating users and group
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: creating a group
+      group:
+        name: test
+        state: present
+      register: Group_details
+
+    - name: To display group details   
+      debug:
+        msg: "{{ Group_details }}"
+
+    - name: creating a user
+      user:
+        name: anil
+        state: present
+        password: $1$0IbYbrKa$Jb7.lV2NBts8WOlyP8Duj1 
+        groups: test
+        group: test
+      register: User_details
+
+
+    - name: To display user details
+      debug:
+        msg: "{{ User_details }}"
+
+    - name: checking groups
+      shell: "groups anil"
+      register: user
+
+    - name: to display user
+      debug:
+        msg: "{{ user }}"
+...
