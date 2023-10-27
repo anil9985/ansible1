@@ -1,0 +1,41 @@
+--- 
+
+- name: Create File System on rootvg
+  hosts: localhost
+  become: yes
+
+
+  tasks:
+    - name: create a logical volume
+      lvol: 
+        vg: /dev/xvda
+        lv: /dev/TestLV
+        size: 128
+        state: present
+          # register: lv_result
+
+ 
+
+    - name: create an ext4 File System
+      filesystem:
+       fstype: ext4
+       dev: "/dev/TestLV"
+       state: present
+         #register: fs_result
+
+
+    - name: Mount the File System
+      mount:
+        path: /testFS
+        src: "/dev/TestLV"
+        fstype: ext4
+        state: mounted
+          #when: fs_result.changed
+          
+    - name: Addan entryto /etc/fstab
+      lineinfile:
+        path: /etc/fstab
+        line: "/dev/TestLV   /testFS   ext4  defaults  0 0"
+            # when: fs_result.changed
+
+...  
