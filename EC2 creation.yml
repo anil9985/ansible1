@@ -1,0 +1,25 @@
+---
+- name: create EC2 instance
+  hosts: localhost
+  gather_facts: false
+  become: yes
+  tasks:
+    - name: creating EC2
+      ec2_instance:
+        #key_name: masterkeypair
+        # instance_type: t2.micro
+          region: "us-east-2"
+            #image_id: ami-0fa399d9c130ec923
+          aws_access_key:  AKIAZWEYXR4JUCK7JGOL
+          aws_secret_key:  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
+            # count: 1
+            # wait: true
+          name: play4
+            #vpc_subnet_id: subnet-0ad00853ed7ea5c5a
+          state: absent
+      register: ec2
+
+    - name: display
+      debug:
+        msg: "{{ ec2 }}"  
+...
